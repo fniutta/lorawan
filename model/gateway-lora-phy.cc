@@ -143,7 +143,7 @@ GatewayLoraPhy::~GatewayLoraPhy()
 // These sensitivities are for a bandwidth of 125000 Hz
 const double GatewayLoraPhy::sensitivity[6] = {-125, -127, -130, -132, -135, -137};
 
-// These sensitivities are for a bandwidth of 125000 Hz
+// These sensitivities are for a bandwidth of 250000 Hz
 //const double GatewayLoraPhy::sensitivity[6] = {-122, -125, -127, -130, -132, -134};
 
 void
