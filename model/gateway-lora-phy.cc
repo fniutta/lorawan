@@ -137,9 +137,14 @@ GatewayLoraPhy::~GatewayLoraPhy()
     NS_LOG_FUNCTION_NOARGS();
 }
 
-// Uplink sensitivity (Source: SX1301 datasheet)
+
+// Uplink sensitivity (calcolate a mano dall'SNR) (la stessa del Downlink nel nstro caso)
 // {SF7, SF8, SF9, SF10, SF11, SF12}
-const double GatewayLoraPhy::sensitivity[6] = {-130.0, -132.5, -135.0, -137.5, -140.0, -142.5};
+// These sensitivities are for a bandwidth of 125000 Hz
+const double GatewayLoraPhy::sensitivity[6] = {-125, -127, -130, -132, -135, -137};
+
+// These sensitivities are for a bandwidth of 125000 Hz
+//const double GatewayLoraPhy::sensitivity[6] = {-122, -125, -127, -130, -132, -134};
 
 void
 GatewayLoraPhy::AddReceptionPath()

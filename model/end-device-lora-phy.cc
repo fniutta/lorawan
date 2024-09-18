@@ -82,10 +82,13 @@ EndDeviceLoraPhy::~EndDeviceLoraPhy()
 {
 }
 
-// Downlink sensitivity (from SX1272 datasheet)
+// Downlink sensitivity (calcolate a mano dall'SNR)
 // {SF7, SF8, SF9, SF10, SF11, SF12}
 // These sensitivities are for a bandwidth of 125000 Hz
-const double EndDeviceLoraPhy::sensitivity[6] = {-124, -127, -130, -133, -135, -137};
+const double EndDeviceLoraPhy::sensitivity[6] = {-125, -127, -130, -132, -135, -137};
+
+// These sensitivities are for a bandwidth of 125000 Hz
+//const double EndDeviceLoraPhy::sensitivity[6] = {-122, -125, -127, -130, -132, -134};
 
 void
 EndDeviceLoraPhy::SetSpreadingFactor(uint8_t sf)
