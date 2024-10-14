@@ -29,7 +29,7 @@ namespace ns3
 {
 namespace lorawan
 {
-
+extern double g_txPower;
 NS_LOG_COMPONENT_DEFINE("LorawanMacHelper");
 
 LorawanMacHelper::LorawanMacHelper()
@@ -146,7 +146,7 @@ LorawanMacHelper::ConfigureForAlohaRegion(Ptr<ClassAEndDeviceLorawanMac> edMac) 
     /////////////////////////////////////////////////////
     // TxPower -> Transmission power in dBm conversion //
     /////////////////////////////////////////////////////
-    edMac->SetTxDbmForTxPower(std::vector<double>{16, 14, 12, 10, 8, 6, 4, 2});
+    edMac->SetTxDbmForTxPower(std::vector<double>{g_txPower, g_txPower, g_txPower, g_txPower, g_txPower, g_txPower, g_txPower, g_txPower});
 
     ////////////////////////////////////////////////////////////
     // Matrix to know which data rate the gateway will respond with //
@@ -212,7 +212,7 @@ LorawanMacHelper::ApplyCommonAlohaConfigurations(Ptr<LorawanMac> lorawanMac) con
     //////////////
 
     LogicalLoraChannelHelper channelHelper;
-    channelHelper.AddSubBand(868, 868.6, 1, 14);
+    channelHelper.AddSubBand(868, 868.6, 1, g_txPower);
 
     //////////////////////
     // Default channels //
@@ -243,7 +243,7 @@ LorawanMacHelper::ConfigureForEuRegion(Ptr<ClassAEndDeviceLorawanMac> edMac) con
     /////////////////////////////////////////////////////
     // TxPower -> Transmission power in dBm conversion //
     /////////////////////////////////////////////////////
-    edMac->SetTxDbmForTxPower(std::vector<double>{16, 14, 12, 10, 8, 6, 4, 2});
+    edMac->SetTxDbmForTxPower(std::vector<double>{g_txPower, g_txPower, g_txPower, g_txPower, g_txPower, g_txPower, g_txPower, g_txPower});
 
     ////////////////////////////////////////////////////////////
     // Matrix to know which data rate the gateway will respond with //
@@ -318,9 +318,9 @@ LorawanMacHelper::ApplyCommonEuConfigurations(Ptr<LorawanMac> lorawanMac) const
     //////////////
 
     LogicalLoraChannelHelper channelHelper;
-    channelHelper.AddSubBand(868, 868.6, 0.01, 14);
-    channelHelper.AddSubBand(868.7, 869.2, 0.001, 14);
-    channelHelper.AddSubBand(869.4, 869.65, 0.1, 27);
+    channelHelper.AddSubBand(868, 868.6, 0.01, g_txPower);
+    channelHelper.AddSubBand(868.7, 869.2, 0.001, g_txPower);
+    channelHelper.AddSubBand(869.4, 869.65, 0.1, g_txPower);
 
     //////////////////////
     // Default channels //
@@ -357,7 +357,7 @@ LorawanMacHelper::ConfigureForSingleChannelRegion(Ptr<ClassAEndDeviceLorawanMac>
     /////////////////////////////////////////////////////
     // TxPower -> Transmission power in dBm conversion //
     /////////////////////////////////////////////////////
-    edMac->SetTxDbmForTxPower(std::vector<double>{16, 14, 12, 10, 8, 6, 4, 2});
+    edMac->SetTxDbmForTxPower(std::vector<double>{g_txPower, g_txPower, g_txPower, g_txPower, g_txPower, g_txPower, g_txPower, g_txPower});
 
     ////////////////////////////////////////////////////////////
     // Matrix to know which DataRate the gateway will respond with //
@@ -430,9 +430,9 @@ LorawanMacHelper::ApplyCommonSingleChannelConfigurations(Ptr<LorawanMac> lorawan
     //////////////
 
     LogicalLoraChannelHelper channelHelper;
-    channelHelper.AddSubBand(868, 868.6, 0.01, 14);
-    channelHelper.AddSubBand(868.7, 869.2, 0.001, 14);
-    channelHelper.AddSubBand(869.4, 869.65, 0.1, 27);
+    channelHelper.AddSubBand(868, 868.6, 0.01, g_txPower);
+    channelHelper.AddSubBand(868.7, 869.2, 0.001, g_txPower);
+    channelHelper.AddSubBand(869.4, 869.65, 0.1, g_txPower);
 
     //////////////////////
     // Default channels //
@@ -477,15 +477,15 @@ LorawanMacHelper::SetSpreadingFactorsUp(NodeContainer endDevices,
         Ptr<Node> bestGateway = gateways.Get(0);
         Ptr<MobilityModel> bestGatewayPosition = bestGateway->GetObject<MobilityModel>();
 
-        // Assume devices transmit at 14 dBm
-        double highestRxPower = channel->GetRxPower(14, position, bestGatewayPosition);
+        // Assume devices transmit at 14 dBm ----> no more, now is dynamic
+        double highestRxPower = channel->GetRxPower(g_txPower, position, bestGatewayPosition);
 
         for (auto currentGw = gateways.Begin() + 1; currentGw != gateways.End(); ++currentGw)
         {
             // Compute the power received from the current gateway
             Ptr<Node> curr = *currentGw;
             Ptr<MobilityModel> currPosition = curr->GetObject<MobilityModel>();
-            double currentRxPower = channel->GetRxPower(14, position, currPosition); // dBm
+            double currentRxPower = channel->GetRxPower(g_txPower, position, currPosition); // dBm
 
             if (currentRxPower > highestRxPower)
             {

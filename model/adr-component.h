@@ -31,7 +31,7 @@ namespace ns3
 {
 namespace lorawan
 {
-
+extern double g_txPower;
 /**
  * \ingroup lorawan
  *
@@ -171,8 +171,8 @@ class AdrComponent : public NetworkControllerComponent
     enum CombiningMethod historyAveraging; //!< Received SNR history policy
 
     const int min_spreadingFactor = 7;    //!< Spreading factor lower limit
-    const int min_transmissionPower = 2;  //!< Minimum transmission power (dBm) (Europe)
-    const int max_transmissionPower = 14; //!< Maximum transmission power (dBm) (Europe)
+    const int min_transmissionPower = g_txPower;  //!< Minimum transmission power (dBm) (Europe)
+    const int max_transmissionPower = g_txPower; //!< Maximum transmission power (dBm) (Europe)
     // const int offset = 10;                //!< Device specific SNR margin (dB)
     const int B = 125000; //!< Bandwidth (Hz)
     const int NF = 6;     //!< Noise Figure (dB)

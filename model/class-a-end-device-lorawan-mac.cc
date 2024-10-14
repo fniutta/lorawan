@@ -89,7 +89,8 @@ ClassAEndDeviceLorawanMac::SendToPhy(Ptr<Packet> packetToSend)
     if (m_enableDRAdapt && (m_dataRate > 0) && (m_retxParams.retxLeft < m_maxNumbTx) &&
         (m_retxParams.retxLeft % 2 == 0))
     {
-        m_txPower = 14; // Reset transmission power
+        extern double g_txPower;
+        m_txPower = g_txPower; // Reset transmission power
         m_dataRate = m_dataRate - 1;
     }
 

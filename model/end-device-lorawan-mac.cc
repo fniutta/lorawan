@@ -34,7 +34,7 @@ namespace ns3
 {
 namespace lorawan
 {
-
+extern double g_txPower;
 NS_LOG_COMPONENT_DEFINE("EndDeviceLorawanMac");
 
 NS_OBJECT_ENSURE_REGISTERED(EndDeviceLorawanMac);
@@ -112,7 +112,7 @@ EndDeviceLorawanMac::EndDeviceLorawanMac()
     : m_enableDRAdapt(false),
       m_maxNumbTx(8),
       m_dataRate(0),
-      m_txPower(14),
+      m_txPower(g_txPower),
       m_codingRate(1),
       // LoraWAN default
       m_headerDisabled(false),
