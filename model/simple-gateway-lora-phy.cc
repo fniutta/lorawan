@@ -125,8 +125,9 @@ SimpleGatewayLoraPhy::StartReceive(Ptr<Packet> packet,
                                    Time duration,
                                    double frequencyMHz)
 {
-    NS_LOG_FUNCTION(this << packet << rxPowerDbm << duration << frequencyMHz);
-
+    //NS_LOG_FUNCTION(this << packet << rxPowerDbm << duration << frequencyMHz);
+    extern double rx_power;
+    rx_power = rxPowerDbm;
     // Fire the trace source
     m_phyRxBeginTrace(packet);
 
